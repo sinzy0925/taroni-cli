@@ -1,0 +1,29 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "taroni-cli"
+version = "0.6.0" # 機能改善なのでバージョンアップ
+authors = [
+  { name="Your Name", email="you@example.com" },
+]
+description = "A smart CLI tool that resolves grounding URLs"
+requires-python = ">=3.9"
+dependencies = [
+    "google-genai",
+    "python-dotenv",
+    "tzdata",
+    # ★★★ httpxを明示的に追加 (google-genaiの依存関係ですが、念のため) ★★★
+    "httpx",
+    "prompt-toolkit", 
+]
+
+[project.scripts]
+taroni = "taroni.main:run"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["taroni"]

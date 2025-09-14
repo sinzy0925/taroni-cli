@@ -1,0 +1,10 @@
+pyproject.toml
+taroni/__init__.py
+taroni/api_key_manager.py
+taroni/main.py
+taroni_cli.egg-info/PKG-INFO
+taroni_cli.egg-info/SOURCES.txt
+taroni_cli.egg-info/dependency_links.txt
+taroni_cli.egg-info/entry_points.txt
+taroni_cli.egg-info/requires.txt
+taroni_cli.egg-info/top_level.txt

@@ -1,0 +1,2 @@
+[console_scripts]
+taroni = taroni.main:run

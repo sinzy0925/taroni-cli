@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: taroni-cli
+Version: 0.6.0
+Summary: A smart CLI tool that resolves grounding URLs
+Author-email: Your Name <you@example.com>
+Requires-Python: >=3.9
+Requires-Dist: google-genai
+Requires-Dist: python-dotenv
+Requires-Dist: tzdata
+Requires-Dist: httpx
+Requires-Dist: prompt-toolkit
