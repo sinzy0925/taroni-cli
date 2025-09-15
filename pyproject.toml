@@ -6,19 +6,18 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "taroni-cli"
-version = "0.6.0" # 機能改善なのでバージョンアップ
+version = "0.8.0" # 階層的設定ファイルの導入
 authors = [
   { name="Your Name", email="you@example.com" },
 ]
-description = "A smart CLI tool that resolves grounding URLs"
+description = "A highly customizable and intelligent CLI assistant for the Google GenAI SDK"
 requires-python = ">=3.9"
 dependencies = [
     "google-genai",
     "python-dotenv",
     "tzdata",
-    # ★★★ httpxを明示的に追加 (google-genaiの依存関係ですが、念のため) ★★★
     "httpx",
-    "prompt-toolkit", 
+    "prompt-toolkit",
 ]
 
 [project.scripts]

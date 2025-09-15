@@ -1,6 +1,7 @@
 pyproject.toml
 taroni/__init__.py
 taroni/api_key_manager.py
+taroni/main copy.py
 taroni/main.py
 taroni_cli.egg-info/PKG-INFO
 taroni_cli.egg-info/SOURCES.txt

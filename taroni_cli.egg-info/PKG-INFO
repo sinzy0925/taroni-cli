@@ -1,7 +1,7 @@
 Metadata-Version: 2.4
 Name: taroni-cli
-Version: 0.6.0
-Summary: A smart CLI tool that resolves grounding URLs
+Version: 0.8.0
+Summary: A highly customizable and intelligent CLI assistant for the Google GenAI SDK
 Author-email: Your Name <you@example.com>
 Requires-Python: >=3.9
 Requires-Dist: google-genai
