@@ -171,7 +171,11 @@ async def handle_interactive_mode(client: genai.Client, model_name: str, args: a
     
     history_list = load_chat_history()
     try:
-        config_dict = {'tools': [types.Tool(google_search=types.GoogleSearch())]}
+        config_dict = {
+            'tools': [types.Tool(google_search=types.GoogleSearch())]
+            #thinking_config=types.ThinkingConfig(thinking_budget=-1, include_thoughts=True)
+        }
+        
         if system_instruction:
             config_dict['system_instruction'] = system_instruction
         

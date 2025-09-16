@@ -1,8 +1,15 @@
 pyproject.toml
 taroni/__init__.py
 taroni/api_key_manager.py
+taroni/cli copy.py
+taroni/cli.py
+taroni/handlers copy.py
+taroni/handlers.py
 taroni/main copy.py
 taroni/main.py
+taroni/test.py
+taroni/utils copy.py
+taroni/utils.py
 taroni_cli.egg-info/PKG-INFO
 taroni_cli.egg-info/SOURCES.txt
 taroni_cli.egg-info/dependency_links.txt

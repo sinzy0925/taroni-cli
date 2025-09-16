@@ -1,2 +1,2 @@
 [console_scripts]
-taroni = taroni.main:run
+taroni = taroni.cli:run

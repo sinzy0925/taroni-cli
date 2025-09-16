@@ -6,9 +6,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "taroni-cli"
-version = "0.8.0" # 階層的設定ファイルの導入
+version = "0.8.1" # 階層的設定ファイルの導入
 authors = [
-  { name="Your Name", email="you@example.com" },
+  { name="Taro.ai", email="sinzy0925@gmail.com" },
 ]
 description = "A highly customizable and intelligent CLI assistant for the Google GenAI SDK"
 requires-python = ">=3.9"
@@ -21,7 +21,7 @@ dependencies = [
 ]
 
 [project.scripts]
-taroni = "taroni.main:run"
+taroni = "taroni.cli:run"
 
 [tool.setuptools.packages.find]
 where = ["."]

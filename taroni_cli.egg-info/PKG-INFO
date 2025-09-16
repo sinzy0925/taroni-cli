@@ -1,8 +1,8 @@
 Metadata-Version: 2.4
 Name: taroni-cli
-Version: 0.8.0
+Version: 0.8.1
 Summary: A highly customizable and intelligent CLI assistant for the Google GenAI SDK
-Author-email: Your Name <you@example.com>
+Author-email: "Taro.ai" <sinzy0925@gmail.com>
 Requires-Python: >=3.9
 Requires-Dist: google-genai
 Requires-Dist: python-dotenv

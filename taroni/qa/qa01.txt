@@ -1,0 +1,24 @@
+taroni --m gemini-2.5-pro
+[ApiKeyManager] 設定ディレクトリ: C:\Users\sinzy\.taroni
+[ApiKeyManager] .envファイルを読み込みました: C:\Users\sinzy\.taroni\.env
+[ApiKeyManager] セッションをロードしました。次のキーインデックスは 0 から開始します。
+[ApiKeyManager] 初期化完了。3個のキーをロードしました。
+[INFO] プロジェクトのシステムプロンプトを読み込みました: C:\Users\sinzy\taroni\TARONI.md
+[ApiKeyManager] APIkey: idx: 0, key: ...KJ3k [From: cli.py:50]
+--- Timestamp (JST): 250916-090314 ---
+--- Using Model: gemini-2.5-pro ---
+--- Interactive Chat Mode (ツール承認機能有効) ---
+複数行の入力が可能です。入力を確定するには [Ctrl+S] を押してください。
+終了するには 'exit' または 'quit' と入力して確定してください。
+[INFO] 41件のチャット履歴をロードしました。
+
+[INFO] セッション終了時にチャット履歴を保存します。
+
+[FATAL] 予期せぬエラーが発生しました: 2 validation errors for Tool
+function_declarations.0
+  Input should be a valid dictionary or object to extract fields from [type=model_attributes_type, input_value=<function read_file at 0x00000192A3402160>, input_type=function]
+    For further information visit https://errors.pydantic.dev/2.11/v/model_attributes_type
+function_declarations.1
+  Input should be a valid dictionary or object to extract fields from [type=model_attributes_type, input_value=<function write_file at 0x00000192A3402200>, input_type=function]
+    For further information visit https://errors.pydantic.dev/2.11/v/model_attributes_type
+(taroni) PS C:\Users\sinzy\taroni> 
