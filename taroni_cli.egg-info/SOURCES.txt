@@ -9,6 +9,7 @@ taroni/handlers.py
 taroni/main copy.py
 taroni/main.py
 taroni/test.py
+taroni/tools copy.py
 taroni/tools.py
 taroni/utils copy.py
 taroni/utils.py

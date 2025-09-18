@@ -27,6 +27,7 @@ def display_thought_process(chunk, is_first_thought_ref=[True]):
         if hasattr(part, 'thought') and part.thought and hasattr(part, 'text') and part.text:
             if is_first_thought_ref[0]: print(f"\n--- AIの思考プロセス ---", file=sys.stderr); is_first_thought_ref[0] = False
             print(part.text, end="", flush=True, file=sys.stderr)
+
 def get_final_answer_from_chunk(chunk):
     answer_text = ""
     if chunk.candidates and hasattr(chunk.candidates[0].content, 'parts'):
@@ -34,6 +35,7 @@ def get_final_answer_from_chunk(chunk):
              if (not hasattr(part, 'thought') or not part.thought) and hasattr(part, 'text') and part.text:
                  answer_text += part.text
     return answer_text
+
 def reconstruct_response_from_chunks(chunks: list[types.GenerateContentResponse]) -> types.GenerateContentResponse | None:
     if not chunks: return None
     final_text = "".join(get_final_answer_from_chunk(c) for c in chunks)
@@ -84,6 +86,7 @@ async def plan_modifications(
         print(json.dumps(function_call.args, indent=2, ensure_ascii=False), file=sys.stderr)
         print("---------------------------------", file=sys.stderr)
         return None, None
+
 def display_plan(plan: ModificationPlan):
     print("\n✅ AIが以下の開発計画を提案しました。")
     print("="*40)
@@ -96,6 +99,7 @@ def display_plan(plan: ModificationPlan):
         print(f"  変更理由: {mod.reason}")
         print(f"  変更概要: {mod.summary_of_changes}")
     print("="*40)
+
 async def get_user_approval(plan: ModificationPlan) -> tuple[str, str] | None:
     display_plan(plan)
     user_input = await asyncio.to_thread(prompt, "この計画を実行しますか？ (y/n/修正点を指示): ")
@@ -103,6 +107,7 @@ async def get_user_approval(plan: ModificationPlan) -> tuple[str, str] | None:
     if user_input_lower in ['y', 'yes', 'はい']: return "APPROVE", user_input
     if user_input_lower in ['n', 'no', 'いいえ']: return "REJECT", user_input
     return "REPLAN", user_input
+
 async def generate_file_content(
     client: genai.Client, model_name: str, system_instruction: str | None,
     modification: FileModification, conversation_history: list[types.Content]
@@ -134,6 +139,7 @@ async def generate_file_content(
     config = types.GenerateContentConfig(system_instruction=full_system_instruction, temperature=0.1)
     response = await client.aio.models.generate_content(model=model_name, contents=temp_conversation, config=config)
     return response.text
+
 async def execute_plan(
     client: genai.Client, model_name: str, system_instruction: str | None,
     plan: ModificationPlan, conversation_history: list[types.Content]
@@ -175,7 +181,9 @@ async def run_agent_session(
     processed_instruction = parse_and_read_files_from_prompt(initial_instruction)
     if not processed_instruction.strip():
         print("エラー: 指示が空です。", file=sys.stderr); return
-    print("--- ユーザーからの初期指示 ---"); print(processed_instruction); print("---------------------------\n")
+    print("--- ユーザーからの初期指示 ---"); 
+    print(processed_instruction); 
+    print("---------------------------\n")
     conversation_history = [types.Content(role="user", parts=[types.Part(text=processed_instruction)])]
     try:
         while True:
@@ -209,6 +217,24 @@ async def handle_one_shot_mode(client: genai.Client, model_name: str, args, syst
 
 
 async def handle_interactive_mode(client: genai.Client, model_name: str, args, system_instruction: str | None):
+    # チャットモード用のAI設定（Google検索ツールを有効化など）
+    # エージェントのシステムプロンプトとは独立させる
+    if model_name == "models/gemini-2.5-pro":
+        chat_config = types.GenerateContentConfig(
+            tools=[types.Tool(google_search=types.GoogleSearch())],
+            system_instruction=system_instruction, # ユーザーが指定したTARONI.mdなどをチャットの性格付けに使う
+            thinking_config=types.ThinkingConfig(thinking_budget=-1, include_thoughts=False)
+        )
+    else:
+        chat_config = types.GenerateContentConfig(
+            tools=[types.Tool(google_search=types.GoogleSearch())],
+            system_instruction=system_instruction, # ユーザーが指定したTARONI.mdなどをチャットの性格付けに使う
+            thinking_config=types.ThinkingConfig(thinking_budget=0, include_thoughts=False)
+        )
+
+    print('--- thinking_config: ' + str(chat_config).split("(")[-1].split(")")[0].replace(" ", "").replace("\n", ""))
+
+
     """対話モードの処理を行う。通常のチャットとエージェント機能を両立させる。"""
     print("--- Interactive Chat Mode ---")
     print("通常の会話ができます。")
@@ -218,12 +244,7 @@ async def handle_interactive_mode(client: genai.Client, model_name: str, args, s
     chat_history_list = load_chat_history()
     
     try:
-        # チャットモード用のAI設定（Google検索ツールを有効化など）
-        # エージェントのシステムプロンプトとは独立させる
-        chat_config = types.GenerateContentConfig(
-            tools=[types.Tool(google_search=types.GoogleSearch())],
-            system_instruction=system_instruction # ユーザーが指定したTARONI.mdなどをチャットの性格付けに使う
-        )
+        
         # 新SDKではチャットセッションの履歴は手動で管理する必要がある
         
         session = PromptSession(completer=PathCompleter())
